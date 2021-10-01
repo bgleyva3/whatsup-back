@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 class users extends Sequelize.Model {
   static associate(models){
     users.hasMany(models.participants, { as: "participants", foreignKey: "user_id"});
+    users.hasMany(models.messages, { as: "messages", foreignKey: "sender_id"});
   }
   static init(sequelize, DataTypes) {
   super.init({

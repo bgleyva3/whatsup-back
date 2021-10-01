@@ -16,8 +16,7 @@ function initModels(sequelize) {
   conversations.hasMany(participants, { as: "participants", foreignKey: "conversation_id"});
   conversations.belongsTo(users, { as: "created_by_user", foreignKey: "created_by"});
   users.hasMany(conversations, { as: "conversations", foreignKey: "created_by"});
-  messages.belongsTo(users, { as: "sender", foreignKey: "sender_id"});
-  users.hasMany(messages, { as: "messages", foreignKey: "sender_id"});
+  
   
   return {
     conversations,

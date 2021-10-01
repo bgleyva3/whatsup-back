@@ -75,14 +75,21 @@ class ConversationsService{
         try{
             let result = await conversations.findOne({
                 where: {id},
+                attributes: {
+                    exclude: ["created_at", "updated_at"]
+                },
                 include: [
                     {
                         model: participants,
                         as: "participants",
+                        attributes: ["id"],
                         include: [
                             {
                                 model: users,
-                                as: "user"
+                                as: "user",
+                                attributes: {
+                                    exclude: ["password", "created_at", "updated_at", "phone"]
+                                }
                             }
                         ]
                     }
@@ -98,10 +105,25 @@ class ConversationsService{
         try{
             let result = await conversations.findOne({
                 where: {id},
+                attributes: {
+                    exclude: ["created_at", "updated_at"]
+                },
                 include: [
                     {
                         model: messages,
-                        as: "messages"
+                        as: "messages",
+                        attributes: {
+                            exclude: ["id", "sender_id", "conversation_id", "created_at"]
+                        },
+                        include: [
+                            {
+                                model: users,
+                                as: "sender",
+                                attributes: {
+                                    exclude: ["password", "created_at", "updated_at", "phone"]
+                                }
+                            }
+                        ]
                     }
                 ]
             })
