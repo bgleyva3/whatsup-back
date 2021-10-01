@@ -4,7 +4,6 @@ const {users} = require("../models")
 class UserService{
     static async getAll(){
         try{
-            console.log(users)
             let results = await users.findAll()
             return results
         }catch(err){
@@ -35,7 +34,9 @@ class UserService{
     static async update(updateUser, id){
         try{
             let result = await users.update(updateUser, {where: {id}})
-            return result
+            if(result[0] === 1)
+                return `Se actualizó el usuario con el id ${id} de la base de datos`
+            return `No existe un usuario con id ${id} en la base de datos`
         }catch(err){
             throw err
         }

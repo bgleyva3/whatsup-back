@@ -4,6 +4,9 @@ module.exports = (sequelize, DataTypes) => {
 }
 
 class participants extends Sequelize.Model {
+  static associate(models){
+    participants.belongsTo(models.users, { as: "user", foreignKey: "user_id"});
+  }
   static init(sequelize, DataTypes) {
   super.init({
     id: {
