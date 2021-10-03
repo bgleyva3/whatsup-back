@@ -5,6 +5,9 @@ class UserService{
     static async getAll(){
         try{
             let results = await users.findAll()
+            /* console.log("''''''''''''''''''''''''''")
+            console.log(results)
+            console.log("''''''''''''''''''''''''''") */
             return results
         }catch(err){
             throw err
@@ -24,7 +27,13 @@ class UserService{
 
     static async create(newUser){
         try{
+            console.log("------------------newUser------------------")
+            console.log(newUser)
+            console.log("------------------------------------------")
             let result = await users.create(newUser)
+            console.log("-------------create service---------------")
+            console.log(result)
+            console.log("------------------------------------------")
             return result
         }catch(err){
             throw err
@@ -33,10 +42,16 @@ class UserService{
 
     static async update(updateUser, id){
         try{
+            /* console.log("++++++++++++++update Service+++++++++++++++")
+            console.log(updateUser)
+            console.log("+++++++++++++++++++++++++++++++++++++++++++") */
             let result = await users.update(updateUser, {where: {id}})
+            /* console.log("++++++++++++++update Result++++++++++++++++")
+            console.log(result)
+            console.log("+++++++++++++++++++++++++++++++++++++++++++") */
             if(result[0] === 1)
-                return `Se actualizó el usuario con el id ${id} de la base de datos`
-            return `No existe un usuario con id ${id} en la base de datos`
+                return true
+            return false
         }catch(err){
             throw err
         }
@@ -45,9 +60,7 @@ class UserService{
     static async delete(id){
         try{
             let result = await users.destroy({where: {id}})
-            if(result === 1)
-                return `Se eliminó el usuario con el id ${id} de la base de datos`
-            return `No existe un usuario con id ${id} en la base de datos`
+            return result
         }catch(err){
             throw err
         }
