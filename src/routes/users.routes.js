@@ -1,9 +1,10 @@
 const {Router} = require("express");
 const {getAllUsers, getUserById, createUser, updateUser, deleteUser} = require("../controllers/users.controllers")
+const validateToken = require("../middlewares/auth.middleware")
 
 const router = Router()
 
-router.get("/users", getAllUsers)
+router.get("/users", validateToken, getAllUsers)
 
 router.get("/users/:id", getUserById)
 

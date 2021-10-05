@@ -84,17 +84,13 @@ describe("Probando los servicios de usuarios", () => {
     it("Debería de regresar true al actualizar el registro de forma satisfactoria", async () => {
         //AAA
         //Arrange
-        console.log("*************update test****************")
+        /* console.log("*************update test****************")
         console.log(userCreated)
+        console.log(JSON.parse(JSON.stringify(userCreated))) */
         userCreated.firstname = faker.name.firstName()
         userCreated = getDataValues(userCreated)
         console.log(userCreated)
-        console.log(userCreated.dataValues)
-        console.log(userCreated.id)
-        console.log(userCreated.lastname)
-        console.log(JSON.stringify(userCreated))
-        console.log(JSON.parse(JSON.stringify(userCreated)))
-        console.log("*******************************")
+        /* console.log("*******************************") */
 
         //Act
         let result = await userService.update(userCreated, userCreated.id)

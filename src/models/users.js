@@ -1,4 +1,6 @@
 const Sequelize = require('sequelize');
+const bcrypt = require("bcryptjs")
+
 module.exports = (sequelize, DataTypes) => {
   return users.init(sequelize, DataTypes);
 }
@@ -56,6 +58,14 @@ class users extends Sequelize.Model {
     sequelize,
     tableName: 'users',
     schema: 'public',
+    hooks: {
+      beforeCreate: (user, options) => {
+        // Cada vez que insertemos un usuario en la base de datos ->
+        // Vamos a encriptar la contraseña
+        const hash = bcrypt.hashSync(user.password, 8)
+        user.password = hash
+      }
+    },
     timestamps: false,
     indexes: [
       {

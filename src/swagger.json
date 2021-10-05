@@ -17,6 +17,7 @@
     "paths": {
         "/users": {
             "get": {
+                "tags": ["users"],
                 "responses": {
                     "200": {
                         "description": "Obtener una lista de usuarios"
@@ -24,6 +25,7 @@
                 }
             },
             "post": {
+                "tags": ["users"],
                 "description": "Agregar un usuario en el sistema",
                 "responses": {
                     "201": {
@@ -43,6 +45,7 @@
         },
         "/users/{id}": {
             "put": {
+                "tags": ["users"],
                 "description": "Actualizar un usuario en el sistema",
                 "responses": {
                     "200": {
@@ -71,6 +74,7 @@
                 }
             },
             "delete": {
+                "tags": ["users"],
                 "description": "Elimina un usuario del sistema",
                 "responses": {
                     "200": {
