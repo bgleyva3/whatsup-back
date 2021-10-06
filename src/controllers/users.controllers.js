@@ -34,9 +34,9 @@ const createUser = async (req, res, next) => {
         
         const user = await UserService.create(newUser)
 
-        console.log("****************************")
+        /* console.log("****************************")
         console.log(user)
-        console.log("****************************")
+        console.log("****************************") */
         res.status(201).json(user)
     }catch(err){
         next(err)

@@ -1,4 +1,8 @@
+// {component} siempre llama primero al index, y el index tiene las
+// reglas para importarlo/exportarlo.
 const {users} = require("../models")
+
+//const users = require("../models/users")
 
 
 class UserService{

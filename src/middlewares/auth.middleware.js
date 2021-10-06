@@ -7,11 +7,11 @@ const validateToken = (req, res, next) => {
         try{
             const decoded = jwt.verify(token, "academlocat21")
             req.user = decoded
-            next()
+            next() //token valido
         }catch(err){
-            next(err)
+            next(err) //token invalido
         }
     }
 }
 
-module.exports = validateToken
+module.exports = {validateToken}
