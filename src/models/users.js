@@ -49,7 +49,8 @@ class users extends Sequelize.Model {
       allowNull: true,
       defaultValue: Sequelize.Sequelize.fn('now')
     },
-    updated_at: {
+    updatedAt: {
+      field: "updated_at",
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.fn('now')
@@ -66,7 +67,7 @@ class users extends Sequelize.Model {
         user.password = hash
       }
     },
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "users_email_key",

@@ -1,6 +1,6 @@
 // {component} siempre llama primero al index, y el index tiene las
 // reglas para importarlo/exportarlo.
-const {users} = require("../models")
+const {conversations, users, participants, messages} = require("../models")
 
 //const users = require("../models/users")
 
@@ -8,10 +8,11 @@ const {users} = require("../models")
 class UserService{
     static async getAll(){
         try{
-            let results = await users.findAll()
-            /* console.log("''''''''''''''''''''''''''")
-            console.log(results)
-            console.log("''''''''''''''''''''''''''") */
+            let results = await users.findAll({
+                attributes: {
+                    exclude: ["password"]
+                }
+            })
             return results
         }catch(err){
             throw err
@@ -20,7 +21,11 @@ class UserService{
 
     static async getById(id){
         try{
-            let result = await users.findByPk(id)
+            let result = await users.findByPk(id, {
+                attributes: {
+                    exclude: ["password"]
+                }
+            })
             if(result)
                 return result
             return {}
@@ -31,13 +36,9 @@ class UserService{
 
     static async create(newUser){
         try{
-            console.log("------------------newUser------------------")
-            console.log(newUser)
-            console.log("------------------------------------------")
             let result = await users.create(newUser)
-            console.log("-------------create service---------------")
-            console.log(result)
-            console.log("------------------------------------------")
+            result = JSON.parse(JSON.stringify(result))
+            delete result.password
             return result
         }catch(err){
             throw err
@@ -46,13 +47,7 @@ class UserService{
 
     static async update(updateUser, id){
         try{
-            /* console.log("++++++++++++++update Service+++++++++++++++")
-            console.log(updateUser)
-            console.log("+++++++++++++++++++++++++++++++++++++++++++") */
             let result = await users.update(updateUser, {where: {id}})
-            /* console.log("++++++++++++++update Result++++++++++++++++")
-            console.log(result)
-            console.log("+++++++++++++++++++++++++++++++++++++++++++") */
             if(result[0] === 1)
                 return true
             return false
@@ -64,6 +59,33 @@ class UserService{
     static async delete(id){
         try{
             let result = await users.destroy({where: {id}})
+            return result
+        }catch(err){
+            throw err
+        }
+    }
+
+
+    static async joinConversations(id){
+        try{
+            let result = await users.findOne({
+                where: {id},
+                attributes: ["id", "firstname", "lastname", "email"],
+                include: [
+                    {
+                        model: participants,
+                        as: "participants",
+                        attributes: ["conversation_id"],
+                        include: [
+                            {
+                                model: conversations,
+                                as: "conversation",
+                                attributes: ["id", "title", "image_url", "type"]
+                            }
+                        ]
+                    }
+                ]
+            })
             return result
         }catch(err){
             throw err

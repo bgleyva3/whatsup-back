@@ -82,7 +82,7 @@ class ConversationsService{
                     {
                         model: participants,
                         as: "participants",
-                        attributes: ["id"],
+                        attributes: ["user_id"],
                         include: [
                             {
                                 model: users,
@@ -97,7 +97,7 @@ class ConversationsService{
             })
             return result
         }catch(err){
-
+            throw err
         }
     }
 
@@ -129,7 +129,7 @@ class ConversationsService{
             })
             return result
         }catch(err){
-
+            throw err
         }
     }
 }
