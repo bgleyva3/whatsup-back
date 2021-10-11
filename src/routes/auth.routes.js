@@ -5,5 +5,4 @@ const router = Router()
 
 router.post("/auth/signin", authenticate)
 
-
 module.exports = router
