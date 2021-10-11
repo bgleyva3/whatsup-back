@@ -65,8 +65,19 @@ class UserService{
         }
     }
 
+    static async joinConversations(id) {
+        try{
+            const results = await conversations.findAll({
+            include: [{ model: participants, as: 'participants', where: { user_id: id } }],
+        })
+        return results;
+        }catch(error){
+            throw error;
+        }
+    }
+    
 
-    static async joinConversations(id){
+    /* static async joinConversations(id){
         try{
             let result = await users.findOne({
                 where: {id},
@@ -90,7 +101,7 @@ class UserService{
         }catch(err){
             throw err
         }
-    }
+    } */
 }
 
 module.exports = UserService

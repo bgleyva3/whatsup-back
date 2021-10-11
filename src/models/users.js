@@ -44,7 +44,8 @@ class users extends Sequelize.Model {
       allowNull: false,
       unique: "users_phone_key"
     },
-    created_at: {
+    createdAt: {
+      field: "created_at",
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.fn('now')

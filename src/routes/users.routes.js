@@ -15,7 +15,7 @@ router.put("/users/:id", validateToken, restrictedPermission, updateUser)
 router.delete("/users/:id", validateToken, restrictedPermission, deleteUser)
 
 
-router.get("/users/:id/conversations", usersConversations)
+router.get("/users/:id/conversations", validateToken, usersConversations)
 
 
 module.exports = router

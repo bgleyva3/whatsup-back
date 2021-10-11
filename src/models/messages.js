@@ -35,7 +35,8 @@ class messages extends Sequelize.Model {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    created_at: {
+    createdAt: {
+      field: "created_at",
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.fn('now')

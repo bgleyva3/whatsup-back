@@ -24,8 +24,12 @@ class ConversationsService{
 
     static async create(newConversation){
         try{
-            let result = await conversations.create(newConversation)
-            return result
+            let conversation = await conversations.create(newConversation)
+            await participants.create({
+                conversation_id: conversation.id, 
+                user_id: conversation.created_by
+            })
+            return conversation
         }catch(err){
             throw err
         }
@@ -73,7 +77,7 @@ class ConversationsService{
 
     static async joinParticipants(id){
         try{
-            let result = await conversations.findOne({
+            let result = await conversations.findAll({
                 where: {id},
                 attributes: {
                     exclude: ["created_at", "updated_at"]
@@ -128,6 +132,22 @@ class ConversationsService{
                 ]
             })
             return result
+        }catch(err){
+            throw err
+        }
+    }
+
+    static async sendMessage(sender_id, conversation_id, message){
+
+        const newMessage = {
+            sender_id,
+            conversation_id,
+            message
+        }
+
+        try{
+            let message = await messages.create(newMessage)
+            return(message)
         }catch(err){
             throw err
         }

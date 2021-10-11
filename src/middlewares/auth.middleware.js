@@ -8,6 +8,8 @@ const validateToken = (req, res, next) => {
             //decoded no devuelve ningún true. Basta con que jwt.verify
             //devuelva cualquier usuario para considerarse como token exitoso
             const decoded = jwt.verify(token, "academlocat21")
+            //creamos una nueva propiedad "user" en req cada vez que el usuario ->
+            //realice alguna consulta con una ruta protegida por validateToken
             req.user = decoded
             return next()
         }catch(err){

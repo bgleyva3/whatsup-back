@@ -17,6 +17,11 @@
     "paths": {
         "/users": {
             "get": {
+                "security": [
+                    {
+                        "jwt_token": []
+                    }
+                ],
                 "tags": ["users"],
                 "responses": {
                     "200": {
@@ -123,6 +128,14 @@
                         "format": "+52(###)######"
                     }
                 }
+            }
+        },
+        "securitySchemes": {
+            "jwt_token": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "Token de autorización"
             }
         }
     }

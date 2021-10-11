@@ -89,6 +89,20 @@ const conversationMessages = async (req, res, next) => {
     }
 }
 
+const postMessage = async (req, res, next) => {
+    try{
+        //renombramos req.user.id como sender_id
+        //obtenemos req.user del middleware de auth.middleware
+        const {id: sender_id} = req.user;
+        const {id: conversation_id} = req.params;
+        const {message} = req.body
+
+        let result = await ConversationsService.sendMessage(sender_id, conversation_id, message)
+        res.status(201).json(result)
+    }catch(err){
+        next(err)
+    }
+}
 
 
 module.exports = {
@@ -99,5 +113,6 @@ module.exports = {
     delete: deleteConversation,
     conversationUsers,
     conversationParticipants,
-    conversationMessages
+    conversationMessages,
+    postMessage
 }
