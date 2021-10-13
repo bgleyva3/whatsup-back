@@ -1,4 +1,5 @@
 const express = require("express")
+const cors = require("cors")
 const userRoutes = require("./routes/users.routes")
 const conversationRoutes = require("./routes/conversations.routes")
 const authRoutes = require("./routes/auth.routes")
@@ -8,6 +9,7 @@ const swaggerDocument = require("../src/swagger.json")
 
 const app = express()
 
+app.use(cors())
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use(express.json())

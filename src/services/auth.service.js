@@ -64,7 +64,10 @@ class AuthService {
         if(!valid)
             throw error;
         const token = this.genToken(result);
-        return token;
+        return {
+            token, 
+            user: result
+        };
     } catch (error) {
         throw error;
     }
@@ -76,7 +79,6 @@ class AuthService {
             expiresIn: "2h",
             algorithm: 'HS256'
         });
-        console.log(token)
         return token;
     } catch (error) {
         throw error;

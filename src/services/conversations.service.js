@@ -129,7 +129,8 @@ class ConversationsService{
                             }
                         ]
                     }
-                ]
+                ],
+                order: [["messages", "id", "asc"]]
             })
             return result
         }catch(err){

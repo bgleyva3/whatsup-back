@@ -3,11 +3,14 @@ const AuthService = require("../services/auth.service");
 const authenticate = async(req, res, next) => {
     try{
     const {email, password} = req.body;
-    const token = await AuthService.login(email, password);
+    const {token, user} = await AuthService.login(email, password);
     
     return res.json({
-        message: "Has iniciado sesión",
-        token
+        accessToken: token,
+        user: {
+            ...user,
+            roles: ["ROLE_ADMIN"]
+        }
     });
     }catch(error){
         next(error);
